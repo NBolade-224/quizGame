@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Guess That</title>
+    <link id="cssLink" href="css" rel="stylesheet">
+</head>
+
+<body>
+<div class="page1" id="mainpage" style="background-image: url('/background?type=footballbackground');">
+    <div id="HeaderBar" class="resizeEl smallerText">
+        <button class="TitleBarButtons smallerText active" onclick="generateFootballTeams()" id="HeaderBarButton1">Football</button>
+        <button class="TitleBarButtons smallerText" onclick="generateAnime()" id="HeaderBarButton2">Anime</button>
+        <button class="TitleBarButtons smallerText" onclick="generateKpop()" id="HeaderBarButton3">Kpop</button>
+    </div>
+    <div id="Box1" class="resizeEl badgeImage">
+        <button id="SubmitButton" class="smallerText" onclick="resetScore()" type="button">Reset Score</button>
+        <button id="ScoreBoxV2" class="smallerText">0/0</button>
+        <select class="filterBoxes smallerText" id="teamSelect">
+            <option value="all">All Teams</option>
+            <option value="mancity">Man City</option>
+            <option value="arsenal">Arsenal</option>
+            <option value="astonvilla">Aston Villa</option>
+            <option value="bournemouth">Bournemouth</option>
+            <option value="brentford">Brentford</option>
+            <option value="brighton">Brighton</option>
+            <option value="chelsea">Chelsea</option>
+            <option value="crystalpalace">Crystal Palace</option>
+            <option value="everton">Everton</option>
+            <option value="fulham">Fulham</option>
+            <option value="leeds">Leeds</option>
+            <option value="leicester">Leicester</option>
+            <option value="liverpool">Liverpool</option>
+            <option value="manutd">Man Utd</option>
+            <option value="nottsforest">Notts Forest</option>
+            <option value="southampton">Southampton</option>
+            <option value="tottenham">Tottenham</option>
+            <option value="westham">West Ham</option>
+            <option value="wolves">Wolves</option>
+        </select>
+        <button class="filterBoxes smallerText" onclick="resetScore()" id="activeSelect">Start</button>
+        <select class="filterBoxes smallerText" id="leagueSelect">
+            <option value="all">All</option>
+        </select>
+    </div>
+    <div id="Box2" class="resizeEl">
+        <img id="badgeImage" alt="Badge" style="border: 5px solid transparent;">
+    </div>
+    <div id="Box3" class="resizeEl">
+        <button id="answer1" onclick="submitAnswer(1)" class="answer" type="button">Answer 1</button>
+        <button id="answer2" onclick="submitAnswer(2)" class="answer" type="button">Answer 2</button>
+        <button id="answer3" onclick="submitAnswer(3)" class="answer" type="button">Answer 3</button>
+        <button id="answer4" onclick="submitAnswer(4)" class="answer" type="button">Answer 4</button>
+    </div>
+    <!-- <div id="sourceText" class="resizeEl smallerText">Data Source
+    </div>
+    <a href="https://www.premierleague.com/clubs/" target="_blank">
+        <img id="imgLogo" src="./logo" alt="">
+    </a> -->
+</div>
+<script id="jsLink" src="js" type="text/javascript"></script>
+</body>
+
+</html>
