@@ -117,6 +117,9 @@ for (const eachbutton of document.getElementsByClassName("TitleBarButtons")) {
 }
 
 // Listener to Resize all elements
+document.getElementById("teamSelect").addEventListener("change", 
+fetchBadge
+);
 window.addEventListener("DOMContentLoaded", 
   resize
 );
@@ -124,9 +127,8 @@ window.addEventListener("DOMContentLoaded",
   fetchBadge
 );
 window.addEventListener("resize",
-resize
+  resize
 );
-
 // log to confirm JavaScript has fully loaded
 console.log(`Java Script Load Complete`);
 

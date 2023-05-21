@@ -33,6 +33,25 @@ for root, dirs, files in os.walk(path):
         #append the file name to the list
         imageDict[file] = os.path.join(root,file)
 
+## All Category Images
+CategoryLists = {"Football": set(),
+                 "Anime":set(),
+                 'Kpop': set()}
+for cat in CategoryLists:
+    path =f"./pics/{cat}"
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            CategoryLists[cat].add(file)
+
+## Sub Category Images
+SubCategoryLists = {}
+for mainCat in os.listdir('./pics'):
+    for subCat in os.listdir(f'./pics/{mainCat}'):
+        path =f"./pics/{mainCat}/{subCat}"
+        SubCategoryLists[mainCat+subCat] = set()
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                SubCategoryLists[mainCat+subCat].add(file)
 
 @app.get("/badge")
 def apiReturn(rand,processed,group,cornm,cat):
@@ -42,15 +61,10 @@ def apiReturn(rand,processed,group,cornm,cat):
     ## Remove processed from the list directory, before selecting a random
     s1 = set(processed)
     if group == 'all':
-        list1 = []
-        path =f"./pics/{cat}"
-        for root, dirs, files in os.walk(path):
-            for file in files:
-                #append the file name to the list
-                list1.append(file)
-        s2 = set(list1)
+        s2 = CategoryLists[cat]
     else:
-        s2 = set(os.listdir(f'./pics/{cat}/{group}'))
+        ## Update this as no need to scour the folder for each request
+        s2 = SubCategoryLists[cat+group]
     array1 = list(s2.difference(s1))
     #print(array1)
     if len(array1) < 1:
