@@ -55,34 +55,46 @@ for mainCat in os.listdir('./pics'):
 
 @app.get("/badge")
 def apiReturn(rand,processed,group,cornm,cat):
-    #print(imageDict)
-    processed = processed.split(',')
-    #print(processed)
+    listOfProcessedPics = processed.split(',')
+
     ## Remove processed from the list directory, before selecting a random
-    s1 = set(processed)
+    setOfProcessedPics = set(listOfProcessedPics)
+
+    ## Find the Pictures Filter/Selection
     if group == 'all':
-        s2 = CategoryLists[cat]
+        setOfAllPictures = CategoryLists[cat]
     else:
         ## Update this as no need to scour the folder for each request
-        s2 = SubCategoryLists[cat+group]
-    array1 = list(s2.difference(s1))
-    #print(array1)
-    if len(array1) < 1:
-        array1 = list(s2)
-    badge = random.choice(array1)
+        setOfAllPictures = SubCategoryLists[cat+group]
+
+    ## Find remaining pictures to choose from by getting the difference from the two sets
+    remainingPicturesToChooseFrom = list(setOfAllPictures.difference(setOfProcessedPics))
+
+    ## If there isnt enough pictures remaining to choose from, then make selection from all pictures
+    if len(remainingPicturesToChooseFrom) < 1:
+        remainingPicturesToChooseFrom = list(setOfAllPictures)
+
+    ## get badge (image to show)
+    badge = random.choice(remainingPicturesToChooseFrom)
     print(badge)
-    array1.remove(badge)
-    try:
-        finalist = random.sample(array1,3)
-        finalist.append(badge)
-    except:
-        appendlist = random.sample(processed,(3-len(array1)))
-        randlist = random.sample(array1,len(array1))
-        finalist = appendlist + randlist
-        finalist.append(badge)
-    finalistv2 = random.sample(finalist,4)
+
+    ## Remove badge from list (this is where we will select 3 other options to choose from)
+    setOfAllPictures.remove(badge)
+
+    ## Choose three random answers to provide as wrong options
+    liftOfOptions = random.sample(setOfAllPictures,3)
+    print(liftOfOptions)
+
+    ## Add the actual answer onto this list
+    liftOfOptions.append(badge)
+    print(liftOfOptions)
+
+    ## Randomise the final list again (to shakeup the order so the correct answer isnt always last)
+    finalOutputList = random.sample(liftOfOptions,4)
     answer = badge[:-4]
-    return (f'./image?team={badge}',finalistv2,answer)
+
+    ## Return ImageUrl, Options and Answer in request
+    return (f'./image?team={badge}',finalOutputList,answer)
 
 @app.get("/image")
 def imagereturn(team):

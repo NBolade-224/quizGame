@@ -160,7 +160,7 @@ function generateFootballTeams() {
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Brighton",'brighton'];
   document.getElementById("teamSelect").appendChild(newElement);
-  [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Chelsea",'12chelsea3'];
+  [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Chelsea",'chelsea'];
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Crystal Palace",'crystalpalace'];
   document.getElementById("teamSelect").appendChild(newElement);
@@ -192,6 +192,10 @@ function generateAnime() {
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"All",'all'];
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Fate/Zero",'fatezero'];
+  document.getElementById("teamSelect").appendChild(newElement);
+  [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Code Geass",'codegeass'];
+  document.getElementById("teamSelect").appendChild(newElement);
+  [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Re:Zero",'rezero'];
   document.getElementById("teamSelect").appendChild(newElement);
 }
 
