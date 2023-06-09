@@ -57,7 +57,7 @@ function resetScore() {
 }
 
 // Submit Answer
-var correctAnswer = "";
+var correctAnswer = ""
 async function submitAnswer(number) {
   const text1 = "answer";
   var userAnswer = document.getElementById(text1.concat(number)).innerHTML;
@@ -89,20 +89,20 @@ async function fetchBadge() {
     x.disabled = false;
   }
   // Fetch new Image from API
-  var response = await fetch(`${base_url}/badge?rand=${Math.random()}&cornm=${totalCorrect}&group=${group}&processed=${Array.from(processedImages)}&cat=${cat}`);
-  var [badge,randlist,ad21] = await response.json();
-  correctAnswer = ad21;
+  var response = await fetch(`${base_url}/badge?rand=${Math.random()}&group=${group}&processed=${Array.from(processedImages)}&cat=${cat}`);
+  var [imgSrc,randlist,answer] = await response.json();
+  correctAnswer = answer;
   // Assign Badge Image and Answers to HTML Tags
-  document.getElementById("badgeImage").src = badge;
-  document.getElementById("answer1").innerHTML = randlist[0].substring(0, randlist[0].length - 4);
-  document.getElementById("answer2").innerHTML = randlist[1].substring(0, randlist[1].length - 4);
-  document.getElementById("answer3").innerHTML = randlist[2].substring(0, randlist[2].length - 4);
-  document.getElementById("answer4").innerHTML = randlist[3].substring(0, randlist[3].length - 4);
+  document.getElementById("badgeImage").src = imgSrc;
+  document.getElementById("answer1").innerHTML = randlist[0][0];
+  document.getElementById("answer2").innerHTML = randlist[1][0];
+  document.getElementById("answer3").innerHTML = randlist[2][0];
+  document.getElementById("answer4").innerHTML = randlist[3][0];
   // add Answer to processed Answers
-  if (processedImages.has(badge.slice(13)) == true || badge.slice(13) == 'Ai Hoshino.jpg') {
+  if (processedImages.has(answer) == true) {
     processedImages = new Set()
   };
-  processedImages.add(badge.slice(13));
+  processedImages.add(answer);
 }
 
 // Add Event listeners to each Navbar button to highlight active page
