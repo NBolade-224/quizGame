@@ -41,11 +41,11 @@ def returnIndex():
     return FileResponse('./assets/index.html')
 
 @app.get("/js")
-def returnAsset():
+def returnJsAsset():
     return FileResponse(f'./assets/index.js')
 
 @app.get("/css")
-def returnAsset():
+def returnCssAsset():
     return FileResponse(f'./assets/index.css')
 
 ## Python Logic
@@ -100,12 +100,8 @@ def imagereturn(img):
         return False
 
 @app.get("/background")
-def test123(type):
+def background(type):
     return FileResponse(f'./assets/backgrounds/{type}.jpg')
-
-@app.get("/logo")
-def test123():
-    return FileResponse(f'./logo.png')
 
 ## Database Query Function
 def databaseQuery(category,teamgroup):

@@ -3,41 +3,6 @@ const base_url = window.location.origin;
 var processedImages = new Set();
 var cat = 'Football';
 
-// Set CSS Variable
-var cssVars = document.querySelector(':root');
-// cssVars.style.setProperty('--width-multiplier', 2);
-
-// Resize all elements Function
-function resize() {
-    // inner = actual html screen width
-    var newWidth = innerWidth;
-    var newHeight = innerHeight;
-    var monitorWidth = screen.width;
-    var monitorHeight = screen.height;
-    // screen = monitor screen
-    var AllContainers = document.getElementsByClassName("page1");
-    for (let i = 0; i < AllContainers.length; i++) {
-      AllContainers[i].style.height = `${innerHeight}px`;
-      AllContainers[i].style.width = `${innerWidth}px`;
-    };
-    // Font resize for answers
-    var textElements = document.getElementsByClassName("answer");
-    for (let i = 0; i < textElements.length; i++) {
-      textElements[i].style.fontSize = `${(newWidth+newHeight)/150}px`;
-    };
-    // Font resize for other smaller text
-    var textElements = document.getElementsByClassName("smallerText");
-    for (let i = 0; i < textElements.length; i++) {
-      textElements[i].style.fontSize = `${(newWidth+newHeight)/200}px`;
-    };
-    // Widen elements on Landscape (and reverse)
-    if (monitorHeight > monitorWidth) {
-      cssVars.style.setProperty('--width-multiplier', 2.5);
-    } else {
-      cssVars.style.setProperty('--width-multiplier', 1);
-    };
-};
-
 // Update Score
 var totalCorrect = 0;
 var totalAnswered = 0;
@@ -89,7 +54,7 @@ async function fetchBadge() {
     x.disabled = false;
   }
   // Fetch new Image from API
-  var response = await fetch(`${base_url}/badge?rand=${Math.random()}&group=${group}&processed=${Array.from(processedImages)}&cat=${cat}`);
+  var response = await fetch(`${base_url}/badge?rand=${Math.random()}&group=${group}&processed=${Array.from(processedImages)}&cat=${cat}&cornm=123`);
   var [imgSrc,randlist,answer] = await response.json();
   correctAnswer = answer;
   // Assign Badge Image and Answers to HTML Tags
@@ -121,13 +86,10 @@ document.getElementById("teamSelect").addEventListener("change",
 fetchBadge
 );
 window.addEventListener("DOMContentLoaded", 
-  resize
-);
-window.addEventListener("DOMContentLoaded", 
   fetchBadge
 );
-window.addEventListener("resize",
-  resize
+window.addEventListener("DOMContentLoaded", 
+  generateFootballTeams
 );
 // log to confirm JavaScript has fully loaded
 console.log(`Java Script Load Complete`);
@@ -145,7 +107,7 @@ function deleteElements() {
 function generateFootballTeams() {
   deleteElements();
   document.getElementById("badgeImage").style.border = "5px solid transparent";
-  document.getElementById("mainpage").style.backgroundImage = "url('/background?type=footballbackground')";
+  document.getElementById("body").style.backgroundImage = "url('/background?type=footballbackground')";
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"All Teams",'all'];
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Man City",'mancity'];
@@ -188,7 +150,7 @@ function generateAnime() {
   deleteElements();
   document.getElementById("badgeImage").style.border = "5px solid rgb(36, 11, 222)";
   // document.getElementById("badgeImage").style.background = "rgb(96, 11, 222)";
-  document.getElementById("mainpage").style.backgroundImage = "url('/background?type=animebackground')";
+  document.getElementById("body").style.backgroundImage = "url('/background?type=animebackground')";
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"All",'all'];
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Fate/Zero",'fatezero'];
@@ -202,8 +164,7 @@ function generateAnime() {
 function generateKpop() {
   deleteElements();
   document.getElementById("badgeImage").style.border = "5px solid rgb(96, 11, 222)";
-
-  document.getElementById("mainpage").style.backgroundImage = "url('/background?type=kpopbackground')";
+  document.getElementById("body").style.backgroundImage = "url('/background?type=kpopbackground')";
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"All",'all'];
   document.getElementById("teamSelect").appendChild(newElement);
   [newElement,newElement.text,newElement.value] = [document.createElement("option"),"Red Velvet",'redvelvet'];
