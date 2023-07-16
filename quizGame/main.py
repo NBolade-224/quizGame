@@ -23,7 +23,6 @@ connection_pool = psycopg2.pool.SimpleConnectionPool(
     host=secret_dict['awsRSep'],
     port='5432'
 )
-connection = connection_pool.getconn()
 
 app = FastAPI()
 origins = ["*"]
@@ -105,7 +104,10 @@ def background(type):
 
 ## Database Query Function
 def databaseQuery(category,teamgroup):
+    ## Retrieve Connection From Pool
+    connection = connection_pool.getconn()
     cursor = connection.cursor()
+
     if teamgroup == 'all':
         cursor.execute("""
             SELECT name, filepath
@@ -125,7 +127,11 @@ def databaseQuery(category,teamgroup):
         """, (category,teamgroup,))
 
     data = cursor.fetchall()
+    
+    ## Return Connection To Pool
     cursor.close()
+    connection_pool.putconn(connection)
+
     return data
 
 # connection_pool.closeall()
